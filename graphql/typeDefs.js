@@ -6,13 +6,23 @@ export default gql`
         name: String!
         lat: Float!
         lon: Float!
+        address: String!
+        city: String!
+        forDogs: Boolean!
     }
 
     type Query {
-        getBeaches: [Beach]!
+        getBeaches(city: [String], forDogs: String): [Beach]!
     }
 
     type Mutation {
-        createBeach(name: String!, lat: Float!, lon: Float!): Beach!
+        createBeach(
+            name: String!
+            lat: Float!
+            lon: Float!
+            address: String!
+            city: String!
+            forDogs: Boolean!
+        ): Beach!
     }
 `;

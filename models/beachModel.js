@@ -16,6 +16,18 @@ const beachSchema = new Schema({
         type: Number,
         required: true,
     },
+    address: {
+        type: String,
+        require: true,
+    },
+    city: {
+        type: String,
+        required: true,
+    },
+    forDogs: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 const Beach = model('Beach', beachSchema);

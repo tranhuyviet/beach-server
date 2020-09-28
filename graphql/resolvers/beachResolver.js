@@ -4,9 +4,23 @@ import { UserInputError } from 'apollo-server';
 export default {
     Query: {
         // GET BEACHES
-        getBeaches: async () => {
+        getBeaches: async (_, args) => {
             try {
-                const beaches = await Beach.find();
+                const { city, forDogs } = args;
+
+                let query = {};
+
+                if (city && city.length > 0) {
+                    query.city = { $in: city };
+                }
+
+                if (forDogs && forDogs === 'true') {
+                    query.forDogs = true;
+                }
+
+                // console.log(query);
+
+                const beaches = await Beach.find(query);
 
                 if (!beaches) throw new UserInputError('Beaches not found');
 
@@ -30,7 +44,7 @@ export default {
                     throw new UserInputError('Beach already exists');
                 }
 
-                const newBeach = new Beach({ name, lat, lon });
+                const newBeach = new Beach({ name, lat, lon, address, city, forDogs });
                 await newBeach.save();
                 return newBeach;
             } catch (error) {
