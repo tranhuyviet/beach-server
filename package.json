@@ -1,0 +1,25 @@
+{
+    "name": "beach-server",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "babel-node index.js",
+        "server": "nodemon --exec babel-node -- index.js",
+        "client": "npm run start --prefix ../beach-client",
+        "dev": "concurrently \"npm run server\" \"npm run client\""
+    },
+    "author": "Viet Tran",
+    "license": "ISC",
+    "dependencies": {
+        "apollo-datasource-rest": "^0.9.4",
+        "apollo-server": "^2.18.1",
+        "babel-cli": "^6.26.0",
+        "babel-preset-env": "^1.7.0",
+        "concurrently": "^5.3.0",
+        "dotenv": "^8.2.0",
+        "graphql": "^15.3.0",
+        "mongoose": "^5.10.7",
+        "yup": "^0.29.3"
+    }
+}
