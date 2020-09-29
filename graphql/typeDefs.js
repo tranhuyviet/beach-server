@@ -9,10 +9,22 @@ export default gql`
         address: String!
         city: String!
         forDogs: Boolean!
+        reviews: [Review]
+        ratingAverage: Float
+    }
+
+    type Review {
+        _id: ID!
+        name: String!
+        comment: String!
+        rating: Float!
+        createdAt: String!
     }
 
     type Query {
         getBeaches(city: [String], forDogs: String): [Beach]!
+        getBeach(name: String!): Beach!
+        getReviews(beachName: String!): [Review]!
     }
 
     type Mutation {
@@ -24,5 +36,6 @@ export default gql`
             city: String!
             forDogs: Boolean!
         ): Beach!
+        createReview(name: String!, comment: String!, rating: Float, beachName: String!): Beach!
     }
 `;

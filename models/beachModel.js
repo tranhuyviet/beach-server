@@ -28,6 +28,25 @@ const beachSchema = new Schema({
         type: Boolean,
         default: false,
     },
+    reviews: [
+        {
+            name: {
+                type: String,
+                required: true,
+            },
+            comment: {
+                type: String,
+                required: true,
+            },
+            rating: {
+                type: Number,
+            },
+            createdAt: {
+                type: String,
+                required: true,
+            },
+        },
+    ],
 });
 
 const Beach = model('Beach', beachSchema);
