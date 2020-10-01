@@ -1,6 +1,7 @@
 import Beach from '../../models/beachModel';
 import { UserInputError } from 'apollo-server';
 import _ from 'lodash';
+import axios from 'axios';
 
 export default {
     Beach: {
@@ -41,11 +42,19 @@ export default {
         // GET BEACH BY NAME
         getBeach: async (parent, { name }) => {
             try {
-                const beach = await Beach.findOne({ name });
+                let beach = await Beach.findOne({ name });
 
                 if (!beach) {
                     throw new UserInputError('GET BEACH ERROR - COULD NOT FOUND BEACH');
                 }
+
+                let dataAPI = await axios.get('https://iot.fvh.fi/opendata/uiras/uiras2_v1.json');
+                dataAPI = Object.values(dataAPI.data.sensors);
+                // console.log('DATA API', dataAPI);
+                dataAPI = dataAPI.find((beach) => beach.meta.name === name);
+                console.log('DATA', dataAPI);
+
+                beach.data = dataAPI.data;
 
                 return beach;
             } catch (error) {

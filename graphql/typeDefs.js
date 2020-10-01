@@ -11,6 +11,13 @@ export default gql`
         forDogs: Boolean!
         reviews: [Review]
         ratingAverage: Float
+        data: [DataSensor]
+    }
+
+    type DataSensor {
+        temp_air: Float
+        temp_water: Float
+        time: String
     }
 
     type Review {
