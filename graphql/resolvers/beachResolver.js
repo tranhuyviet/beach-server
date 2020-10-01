@@ -50,10 +50,7 @@ export default {
 
                 let dataAPI = await axios.get('https://iot.fvh.fi/opendata/uiras/uiras2_v1.json');
                 dataAPI = Object.values(dataAPI.data.sensors);
-                // console.log('DATA API', dataAPI);
                 dataAPI = dataAPI.find((beach) => beach.meta.name === name);
-                console.log('DATA', dataAPI);
-
                 beach.data = dataAPI.data;
 
                 return beach;

@@ -28,6 +28,9 @@ export default {
             try {
                 let errors = {};
 
+                // args.rating = args.rating * 1;
+                // console.log(args);
+
                 try {
                     await reviewValidate.validate(args, { abortEarly: false });
                 } catch (error) {
@@ -42,12 +45,14 @@ export default {
                     throw new UserInputError('CREATE REVIEW ERROR - BEACH NOT FOUND');
                 }
 
-                beach.reviews.unshift({
+                const newReview = {
                     name,
                     comment,
                     rating,
                     createdAt: new Date().toISOString(),
-                });
+                };
+
+                beach.reviews.unshift(newReview);
 
                 await beach.save();
 
