@@ -14,7 +14,7 @@ export default {
         // GET BEACHES
         getBeaches: async (parent, args) => {
             try {
-                const { city, forDogs } = args;
+                const { city, forDogs, winterSwimming } = args;
 
                 let query = {};
 
@@ -26,7 +26,11 @@ export default {
                     query.forDogs = true;
                 }
 
-                // console.log(query);
+                if (winterSwimming && winterSwimming === 'true') {
+                    query.winterSwimming = true;
+                }
+
+                console.log(query);
 
                 const beaches = await Beach.find(query);
 

@@ -29,7 +29,7 @@ export default gql`
     }
 
     type Query {
-        getBeaches(city: [String], forDogs: String): [Beach]!
+        getBeaches(city: [String], forDogs: String, winterSwimming: String): [Beach]!
         getBeach(name: String!): Beach!
         getReviews(beachName: String!): [Review]!
     }
