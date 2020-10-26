@@ -9,6 +9,7 @@ export default gql`
         address: String!
         city: String!
         forDogs: Boolean!
+        winterSwimming: Boolean!
         reviews: [Review]
         ratingAverage: Float
         data: [DataSensor]

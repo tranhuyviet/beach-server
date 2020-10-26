@@ -30,11 +30,11 @@ export default {
                     query.winterSwimming = true;
                 }
 
-                console.log(query);
-
                 const beaches = await Beach.find(query);
 
                 if (!beaches) throw new UserInputError('Beaches not found');
+
+                // console.log(beaches);
 
                 return beaches;
             } catch (error) {

@@ -28,6 +28,10 @@ const beachSchema = new Schema({
         type: Boolean,
         default: false,
     },
+    winterSwimming: {
+        type: Boolean,
+        default: false,
+    },
     reviews: [
         {
             name: {
