@@ -13,6 +13,7 @@ export default gql`
         reviews: [Review]
         ratingAverage: Float
         data: [DataSensor]
+        info: String
     }
 
     type DataSensor {

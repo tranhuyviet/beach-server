@@ -52,10 +52,25 @@ export default {
                     throw new UserInputError('GET BEACH ERROR - COULD NOT FOUND BEACH');
                 }
 
+                // data sensor
                 let dataAPI = await axios.get('https://iot.fvh.fi/opendata/uiras/uiras2_v1.json');
                 dataAPI = Object.values(dataAPI.data.sensors);
                 dataAPI = dataAPI.find((beach) => beach.meta.name === name);
                 beach.data = dataAPI.data;
+
+                // data info
+
+                let id = dataAPI.meta.servicemap_url.split('/');
+                id = id[id.length - 1];
+
+                const link = 'http://www.hel.fi/palvelukarttaws/rest/v4/unit/' + id;
+
+                let info = await axios.get(link);
+
+                let infoBeach = info.data.desc_fi ? info.data.desc_fi : info.data.short_desc_fi;
+                if (!infoBeach) infoBeach = 'No data from API';
+
+                beach.info = infoBeach;
 
                 return beach;
             } catch (error) {
