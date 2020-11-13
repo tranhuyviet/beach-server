@@ -74,6 +74,9 @@ export default {
 
                 beach.info = infoBeach;
 
+                beach.hslUrl = `https://reittiopas.hsl.fi/reitti/::undefined,undefined/${beach.address}::${beach.lat},${beach.lon}`
+                beach.mapsUrl = `https://www.google.com/maps/search/?api=1&query=${beach.lat},${beach.lon}`
+
                 return beach;
             } catch (error) {
                 console.log(error);

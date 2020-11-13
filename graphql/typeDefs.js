@@ -14,6 +14,8 @@ export default gql`
         ratingAverage: Float
         data: [DataSensor]
         info: String
+        hslUrl: String
+        mapsUrl: String
     }
 
     type DataSensor {
