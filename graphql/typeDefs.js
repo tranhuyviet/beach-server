@@ -16,6 +16,8 @@ export default gql`
         info: String
         hslUrl: String
         mapsUrl: String
+        noAlgae: String
+        sighting: Sighting
     }
 
     type DataSensor {
@@ -32,12 +34,19 @@ export default gql`
         createdAt: String!
     }
 
+    type Sighting {
+        distance: String
+        date: String
+        text: String
+    }
+
     type Query {
         getBeaches(
             city: [String]
             forDogs: String
             winterSwimming: String
             isOver18: String
+            noAlgae: String
         ): [Beach]!
         getBeach(name: String!): Beach!
         getReviews(beachName: String!): [Review]!
