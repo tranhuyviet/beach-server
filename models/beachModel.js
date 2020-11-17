@@ -44,6 +44,10 @@ const beachSchema = new Schema({
         type: Boolean,
         default: false,
     },
+    children: {
+        type: Boolean,
+        default: false,
+    },
     reviews: [
         {
             name: {

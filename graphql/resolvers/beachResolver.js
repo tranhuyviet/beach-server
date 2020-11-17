@@ -21,6 +21,7 @@ export default {
                     shower,
                     toilet,
                     restaurant,
+                    children,
                     isOver18,
                 } = args;
 
@@ -50,7 +51,11 @@ export default {
                     query.restaurant = 'true';
                 }
 
-                console.log('QUERY', query);
+                if (children && children === 'true') {
+                    query.children = 'true';
+                }
+
+                // console.log('QUERY', query);
 
                 const beaches = await Beach.find(query);
 
