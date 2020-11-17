@@ -36,6 +36,14 @@ const beachSchema = new Schema({
         type: Boolean,
         default: false,
     },
+    toilet: {
+        type: Boolean,
+        default: false,
+    },
+    restaurant: {
+        type: Boolean,
+        default: false,
+    },
     reviews: [
         {
             name: {

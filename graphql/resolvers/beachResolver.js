@@ -14,7 +14,15 @@ export default {
         // GET BEACHES
         getBeaches: async (parent, args) => {
             try {
-                const { city, forDogs, winterSwimming, shower, isOver18 } = args;
+                const {
+                    city,
+                    forDogs,
+                    winterSwimming,
+                    shower,
+                    toilet,
+                    restaurant,
+                    isOver18,
+                } = args;
 
                 let query = {};
 
@@ -32,6 +40,14 @@ export default {
 
                 if (shower && shower === 'true') {
                     query.shower = true;
+                }
+
+                if (toilet && toilet === 'true') {
+                    query.toilet = true;
+                }
+
+                if (restaurant && restaurant === 'true') {
+                    query.restaurant = 'true';
                 }
 
                 console.log('QUERY', query);
