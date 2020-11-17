@@ -10,6 +10,7 @@ export default gql`
         city: String!
         forDogs: Boolean!
         winterSwimming: Boolean!
+        shower: Boolean!
         reviews: [Review]
         ratingAverage: Float
         data: [DataSensor]
@@ -35,6 +36,7 @@ export default gql`
             city: [String]
             forDogs: String
             winterSwimming: String
+            shower: String
             isOver18: String
         ): [Beach]!
         getBeach(name: String!): Beach!

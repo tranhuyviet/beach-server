@@ -32,6 +32,10 @@ const beachSchema = new Schema({
         type: Boolean,
         default: false,
     },
+    shower: {
+        type: Boolean,
+        default: false,
+    },
     reviews: [
         {
             name: {

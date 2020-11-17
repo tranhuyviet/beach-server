@@ -14,7 +14,7 @@ export default {
         // GET BEACHES
         getBeaches: async (parent, args) => {
             try {
-                const { city, forDogs, winterSwimming, isOver18 } = args;
+                const { city, forDogs, winterSwimming, shower, isOver18 } = args;
 
                 let query = {};
 
@@ -30,13 +30,37 @@ export default {
                     query.winterSwimming = true;
                 }
 
+                if (shower && shower === 'true') {
+                    query.shower = true;
+                }
+
                 console.log('QUERY', query);
 
                 const beaches = await Beach.find(query);
 
                 if (!beaches) throw new UserInputError('Beaches not found');
 
-                // console.log(beaches);
+                // if (isOver18 && isOver18 === 'true') {
+                //     let dataAPI = await axios.get(
+                //         'https://iot.fvh.fi/opendata/uiras/uiras2_v1.json'
+                //     );
+                //     dataAPI = Object.values(dataAPI.data.sensors);
+                //     // console.log('isOver', dataAPI);
+                //     let combineDataAPI = [];
+                //     dataAPI.forEach((dt) => {
+                //         if (dt.data[dt.data.length - 1].temp_water > 8) {
+                //             console.log(dt.data[dt.data.length - 1]);
+                //             combineDataAPI.push({
+                //                 name: dt.meta.name,
+                //                 temp_water: dt.data[dt.data.length - 1].temp_water,
+                //             });
+                //         }
+                //     });
+                //     console.log('combineDataAPI', combineDataAPI);
+
+                // }
+
+                console.log(beaches);
 
                 return beaches;
             } catch (error) {
