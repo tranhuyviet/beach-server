@@ -2,6 +2,7 @@ import Beach from '../../models/beachModel';
 import { UserInputError } from 'apollo-server';
 import _ from 'lodash';
 import axios from 'axios';
+import { getAlgaeData } from '../../utils/algaeService';
 
 export default {
     Beach: {
@@ -22,6 +23,7 @@ export default {
                     toilet,
                     restaurant,
                     children,
+                    noAlgae,
                     isOver18,
                 } = args;
 
@@ -57,31 +59,21 @@ export default {
 
                 // console.log('QUERY', query);
 
-                const beaches = await Beach.find(query);
+                let beaches = await Beach.find(query);
 
                 if (!beaches) throw new UserInputError('Beaches not found');
 
-                // if (isOver18 && isOver18 === 'true') {
-                //     let dataAPI = await axios.get(
-                //         'https://iot.fvh.fi/opendata/uiras/uiras2_v1.json'
-                //     );
-                //     dataAPI = Object.values(dataAPI.data.sensors);
-                //     // console.log('isOver', dataAPI);
-                //     let combineDataAPI = [];
-                //     dataAPI.forEach((dt) => {
-                //         if (dt.data[dt.data.length - 1].temp_water > 8) {
-                //             console.log(dt.data[dt.data.length - 1]);
-                //             combineDataAPI.push({
-                //                 name: dt.meta.name,
-                //                 temp_water: dt.data[dt.data.length - 1].temp_water,
-                //             });
-                //         }
-                //     });
-                //     console.log('combineDataAPI', combineDataAPI);
-
-                // }
-
-                console.log(beaches);
+                if (noAlgae && noAlgae === 'true') {
+                    const algaeSightings = await getAlgaeData(beaches);
+                    if (algaeSightings) {
+                        beaches = algaeSightings
+                            .filter(
+                                (algaeData) => JSON.parse(algaeData.sighting.DataJSON[0]).val === 0
+                            )
+                            .map((algaeData) => algaeData.beach);
+                    }
+                }
+                // console.log(beaches);
 
                 return beaches;
             } catch (error) {
@@ -99,26 +91,39 @@ export default {
                     throw new UserInputError('GET BEACH ERROR - COULD NOT FOUND BEACH');
                 }
 
-                // data sensor
-                let dataAPI = await axios.get('https://iot.fvh.fi/opendata/uiras/uiras2_v1.json');
-                dataAPI = Object.values(dataAPI.data.sensors);
-                dataAPI = dataAPI.find((beach) => beach.meta.name === name);
-                beach.data = dataAPI.data;
+                const dataAPI = axios.get('https://iot.fvh.fi/opendata/uiras/uiras2_v1.json');
+                const algaeData = getAlgaeData([beach]);
 
-                // data info
+                await Promise.all([dataAPI, algaeData]).then(async (promises) => {
+                    let dataAPI = promises[0];
+                    dataAPI = Object.values(dataAPI.data.sensors);
+                    dataAPI = dataAPI.find((beach) => beach.meta.name === name);
+                    beach.data = dataAPI.data;
 
-                let id = dataAPI.meta.servicemap_url.split('/');
-                id = id[id.length - 1];
+                    // beach info
+                    let id = dataAPI.meta.servicemap_url.split('/');
+                    id = id[id.length - 1];
 
-                const link = 'http://www.hel.fi/palvelukarttaws/rest/v4/unit/' + id;
+                    const info = await axios.get(
+                        'http://www.hel.fi/palvelukarttaws/rest/v4/unit/' + id
+                    );
 
-                let info = await axios.get(link);
+                    let infoBeach = info.data.desc_fi ? info.data.desc_fi : info.data.short_desc_fi;
+                    if (!infoBeach) infoBeach = 'No data from API';
+                    beach.info = infoBeach;
 
-                let infoBeach = info.data.desc_fi ? info.data.desc_fi : info.data.short_desc_fi;
-                if (!infoBeach) infoBeach = 'No data from API';
+                    // algae sighting
+                    beach.sighting = promises[1]
+                        ? {
+                              date: promises[1][0].date,
+                              distance: promises[1][0].distance,
+                              text: promises[1][0].text,
+                          }
+                        : null;
+                });
 
-                beach.info = infoBeach;
-
+                beach.hslUrl = `https://reittiopas.hsl.fi/reitti/::undefined,undefined/${beach.address}::${beach.lat},${beach.lon}`;
+                beach.mapsUrl = `https://www.google.com/maps/search/?api=1&query=${beach.lat},${beach.lon}`;
                 return beach;
             } catch (error) {
                 console.log(error);

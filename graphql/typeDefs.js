@@ -18,6 +18,10 @@ export default gql`
         ratingAverage: Float
         data: [DataSensor]
         info: String
+        hslUrl: String
+        mapsUrl: String
+        noAlgae: String
+        sighting: Sighting
     }
 
     type DataSensor {
@@ -34,6 +38,12 @@ export default gql`
         createdAt: String!
     }
 
+    type Sighting {
+        distance: String
+        date: String
+        text: String
+    }
+
     type Query {
         getBeaches(
             city: [String]
@@ -44,6 +54,7 @@ export default gql`
             restaurant: String
             children: String
             isOver18: String
+            noAlgae: String
         ): [Beach]!
         getBeach(name: String!): Beach!
         getReviews(beachName: String!): [Review]!
