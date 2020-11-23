@@ -24,6 +24,7 @@ export default {
                     restaurant,
                     children,
                     noAlgae,
+                    changing,
                     isOver18,
                 } = args;
 
@@ -55,6 +56,10 @@ export default {
 
                 if (children && children === 'true') {
                     query.children = 'true';
+                }
+
+                if (changing && changing === 'true') {
+                    query.changing = 'true';
                 }
 
                 // console.log('QUERY', query);

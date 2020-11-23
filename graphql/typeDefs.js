@@ -14,6 +14,7 @@ export default gql`
         toilet: Boolean!
         restaurant: Boolean!
         children: Boolean!
+        changing: Boolean!
         reviews: [Review]
         ratingAverage: Float
         data: [DataSensor]
@@ -53,6 +54,7 @@ export default gql`
             toilet: String
             restaurant: String
             children: String
+            changing: String
             isOver18: String
             noAlgae: String
         ): [Beach]!
