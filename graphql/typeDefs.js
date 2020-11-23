@@ -17,6 +17,7 @@ export default gql`
         changing: Boolean!
         guard: Boolean!
         fitness: Boolean!
+        sport: Boolean!
         reviews: [Review]
         ratingAverage: Float
         data: [DataSensor]
@@ -59,6 +60,7 @@ export default gql`
             changing: String
             guard: String
             fitness: String
+            sport: String
             isOver18: String
             noAlgae: String
         ): [Beach]!

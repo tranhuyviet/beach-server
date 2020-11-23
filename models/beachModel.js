@@ -60,6 +60,10 @@ const beachSchema = new Schema({
         type: Boolean,
         default: false,
     },
+    sport: {
+        type: Boolean,
+        default: false,
+    },
     reviews: [
         {
             name: {

@@ -27,6 +27,7 @@ export default {
                     changing,
                     guard,
                     fitness,
+                    sport,
                     isOver18,
                 } = args;
 
@@ -70,6 +71,10 @@ export default {
 
                 if (fitness && fitness === 'true') {
                     query.fitness = 'true';
+                }
+
+                if (sport && sport === 'true') {
+                    query.sport = 'true';
                 }
 
                 // console.log('QUERY', query);
