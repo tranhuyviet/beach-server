@@ -26,6 +26,7 @@ export default {
                     noAlgae,
                     changing,
                     guard,
+                    fitness,
                     isOver18,
                 } = args;
 
@@ -65,6 +66,10 @@ export default {
 
                 if (guard && guard === 'true') {
                     query.guard = 'true';
+                }
+
+                if (fitness && fitness === 'true') {
+                    query.fitness = 'true';
                 }
 
                 // console.log('QUERY', query);

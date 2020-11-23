@@ -16,6 +16,7 @@ export default gql`
         children: Boolean!
         changing: Boolean!
         guard: Boolean!
+        fitness: Boolean!
         reviews: [Review]
         ratingAverage: Float
         data: [DataSensor]
@@ -57,6 +58,7 @@ export default gql`
             children: String
             changing: String
             guard: String
+            fitness: String
             isOver18: String
             noAlgae: String
         ): [Beach]!
