@@ -19,6 +19,7 @@ export default gql`
         fitness: Boolean!
         sport: Boolean!
         kiosk: Boolean!
+        sauna: Boolean!
         reviews: [Review]
         ratingAverage: Float
         data: [DataSensor]
@@ -63,6 +64,7 @@ export default gql`
             fitness: String
             sport: String
             kiosk: String
+            sauna: String
             isOver18: String
             noAlgae: String
         ): [Beach]!

@@ -68,6 +68,10 @@ const beachSchema = new Schema({
         type: Boolean,
         default: false,
     },
+    sauna: {
+        type: Boolean,
+        default: false,
+    },
     reviews: [
         {
             name: {
