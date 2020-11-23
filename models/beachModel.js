@@ -64,6 +64,10 @@ const beachSchema = new Schema({
         type: Boolean,
         default: false,
     },
+    kiosk: {
+        type: Boolean,
+        default: false,
+    },
     reviews: [
         {
             name: {

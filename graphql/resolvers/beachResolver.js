@@ -28,6 +28,7 @@ export default {
                     guard,
                     fitness,
                     sport,
+                    kiosk,
                     isOver18,
                 } = args;
 
@@ -75,6 +76,10 @@ export default {
 
                 if (sport && sport === 'true') {
                     query.sport = 'true';
+                }
+
+                if (kiosk && kiosk === 'true') {
+                    query.kiosk = 'true';
                 }
 
                 // console.log('QUERY', query);
