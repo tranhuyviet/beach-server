@@ -25,6 +25,7 @@ export default {
                     children,
                     noAlgae,
                     changing,
+                    guard,
                     isOver18,
                 } = args;
 
@@ -60,6 +61,10 @@ export default {
 
                 if (changing && changing === 'true') {
                     query.changing = 'true';
+                }
+
+                if (guard && guard === 'true') {
+                    query.guard = 'true';
                 }
 
                 // console.log('QUERY', query);

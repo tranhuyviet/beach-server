@@ -52,6 +52,10 @@ const beachSchema = new Schema({
         type: Boolean,
         default: false,
     },
+    guard: {
+        type: Boolean,
+        default: false,
+    },
     reviews: [
         {
             name: {
