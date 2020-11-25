@@ -20,6 +20,7 @@ export default gql`
         sport: Boolean!
         kiosk: Boolean!
         sauna: Boolean!
+        temp: Int
         reviews: [Review]
         ratingAverage: Float
         data: [DataSensor]
@@ -65,7 +66,7 @@ export default gql`
             sport: String
             kiosk: String
             sauna: String
-            isOver18: String
+            temp: Int
             noAlgae: String
         ): [Beach]!
         getBeach(name: String!): Beach!

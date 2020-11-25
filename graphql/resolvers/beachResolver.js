@@ -30,7 +30,7 @@ export default {
                     sport,
                     kiosk,
                     sauna,
-                    isOver18,
+                    temp,
                 } = args;
 
                 let query = {};
@@ -87,7 +87,7 @@ export default {
                     query.sauna = 'true';
                 }
 
-                // console.log('QUERY', query);
+                console.log('TEMP', temp);
 
                 let beaches = await Beach.find(query);
 
