@@ -87,11 +87,35 @@ export default {
                     query.sauna = 'true';
                 }
 
-                console.log('TEMP', temp);
+                // console.log('TEMP', temp);
 
                 let beaches = await Beach.find(query);
 
                 if (!beaches) throw new UserInputError('Beaches not found');
+
+                if (temp) {
+                    let dataAPI = await axios.get(
+                        'https://iot.fvh.fi/opendata/uiras/uiras2_v1.json'
+                    );
+                    dataAPI = Object.values(dataAPI.data.sensors);
+
+                    let tempBeaches = [];
+                    beaches.forEach((beach) => {
+                        let tempBeach = Object.assign({}, beach)._doc;
+
+                        dataAPI.forEach((dt) => {
+                            if (
+                                dt.meta.name === tempBeach.name &&
+                                dt.data[dt.data.length - 1].temp_water >= temp
+                            ) {
+                                tempBeach.temp_water = dt.data[dt.data.length - 1].temp_water;
+                                tempBeaches.push(tempBeach);
+                            }
+                        });
+                    });
+
+                    beaches = tempBeaches;
+                }
 
                 if (noAlgae && noAlgae === 'true') {
                     const algaeSightings = await getAlgaeData(beaches);
